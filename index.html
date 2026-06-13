@@ -4,831 +4,531 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#0a0f1a">
+  <meta name="theme-color" content="#1e3a5f">
   <title>LaptopPedia - Panduan Pemula</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* ===== CSS VARIABLES ===== */
-    :root {
-      --bg: #0a0f1a;
-      --bg-card: #111827;
-      --bg-card-hover: #1a2332;
-      --fg: #e8edf5;
-      --fg-muted: #7a8ba7;
-      --accent: #00e68a;
-      --accent-dim: rgba(0, 230, 138, 0.12);
-      --accent-glow: rgba(0, 230, 138, 0.3);
-      --orange: #ff8c42;
-      --orange-dim: rgba(255, 140, 66, 0.12);
-      --cyan: #22d3ee;
-      --cyan-dim: rgba(34, 211, 238, 0.12);
-      --pink: #f472b6;
-      --pink-dim: rgba(244, 114, 182, 0.12);
-      --yellow: #facc15;
-      --yellow-dim: rgba(250, 204, 21, 0.12);
-      --red: #ef4444;
-      --border: rgba(255,255,255,0.06);
-      --radius: 14px;
-      --radius-sm: 8px;
-      --shadow: 0 4px 24px rgba(0,0,0,0.4);
-    }
-
-    /* ===== RESET & BASE ===== */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Space Grotesk', sans-serif;
-      background: var(--bg);
-      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      background: #f0f4f8;
+      color: #1e293b;
       min-height: 100vh;
-      overflow-x: hidden;
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* ===== BACKGROUND ATMOSPHERE ===== */
-    .bg-glow {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .bg-glow .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.25;
-      animation: orbFloat 12s ease-in-out infinite alternate;
-    }
-    .bg-glow .orb-1 {
-      width: 350px; height: 350px;
-      background: var(--accent);
-      top: -100px; left: -80px;
-      animation-delay: 0s;
-    }
-    .bg-glow .orb-2 {
-      width: 280px; height: 280px;
-      background: var(--orange);
-      bottom: 10%; right: -60px;
-      animation-delay: -4s;
-      animation-duration: 15s;
-    }
-    .bg-glow .orb-3 {
-      width: 200px; height: 200px;
-      background: var(--cyan);
-      top: 50%; left: 30%;
-      animation-delay: -8s;
-      animation-duration: 18s;
-      opacity: 0.15;
-    }
-    @keyframes orbFloat {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(30px, -40px) scale(1.1); }
-      100% { transform: translate(-20px, 30px) scale(0.95); }
-    }
-
-    /* ===== NOISE OVERLAY ===== */
-    .noise-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 1;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    /* ===== MAIN CONTAINER ===== */
-    .app-container {
-      position: relative;
-      z-index: 2;
-      max-width: 480px;
-      margin: 0 auto;
-      padding: 0 16px 100px;
-    }
-
-    /* ===== HEADER ===== */
-    .app-header {
-      padding: 20px 0 10px;
-      text-align: center;
-    }
-    .logo-row {
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background: #1e3a5f;
+      color: white;
+      padding: 14px 20px;
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 10px;
-      margin-bottom: 6px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
-    .logo-icon {
-      width: 42px; height: 42px;
-      background: linear-gradient(135deg, var(--accent), #00b36b);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; color: #0a0f1a;
-      box-shadow: 0 0 20px var(--accent-glow);
-    }
-    .logo-text {
-      font-size: 26px;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--accent), var(--cyan));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .logo-sub {
-      font-size: 13px;
-      color: var(--fg-muted);
+    .navbar i { font-size: 22px; color: #60a5fa; }
+    .navbar span { font-size: 18px; font-weight: 700; }
+    .navbar small {
+      margin-left: auto;
+      font-size: 11px;
+      opacity: 0.6;
       font-weight: 400;
     }
 
-    /* ===== PROGRESS BAR ===== */
-    .progress-section {
-      margin: 16px 0;
+    /* ===== CONTAINER ===== */
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 16px 16px 90px;
+    }
+
+    /* ===== PROGRESS ===== */
+    .progress-box {
+      background: white;
+      border-radius: 10px;
       padding: 14px 16px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
     .progress-top {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .progress-label {
       font-size: 13px;
-      color: var(--fg-muted);
+      margin-bottom: 8px;
+      color: #64748b;
     }
-    .progress-count {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--accent);
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .progress-bar-bg {
-      width: 100%;
+    .progress-top b { color: #1e3a5f; }
+    .progress-bar {
       height: 8px;
-      background: rgba(255,255,255,0.06);
+      background: #e2e8f0;
       border-radius: 10px;
       overflow: hidden;
     }
-    .progress-bar-fill {
+    .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent), var(--cyan));
+      background: #2563eb;
       border-radius: 10px;
       width: 0%;
-      transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 0 12px var(--accent-glow);
+      transition: width 0.5s ease;
     }
 
     /* ===== SEARCH ===== */
-    .search-wrap {
+    .search-box {
       position: relative;
-      margin: 12px 0 18px;
+      margin-bottom: 14px;
     }
-    .search-wrap i {
+    .search-box i {
       position: absolute;
-      left: 16px;
+      left: 14px;
       top: 50%;
       transform: translateY(-50%);
-      color: var(--fg-muted);
-      font-size: 15px;
+      color: #94a3b8;
+      font-size: 14px;
     }
-    .search-input {
+    .search-box input {
       width: 100%;
-      padding: 14px 16px 14px 44px;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      color: var(--fg);
-      font-size: 15px;
-      font-family: 'Space Grotesk', sans-serif;
+      padding: 12px 14px 12px 40px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
       outline: none;
-      transition: border-color 0.3s, box-shadow 0.3s;
+      background: white;
+      transition: border-color 0.2s;
     }
-    .search-input::placeholder { color: var(--fg-muted); }
-    .search-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-dim);
-    }
+    .search-box input:focus { border-color: #2563eb; }
+    .search-box input::placeholder { color: #94a3b8; }
 
-    /* ===== CATEGORY TABS ===== */
-    .tabs-scroll {
+    /* ===== TABS ===== */
+    .tabs {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
       padding-bottom: 14px;
-      margin-bottom: 6px;
       scrollbar-width: none;
     }
-    .tabs-scroll::-webkit-scrollbar { display: none; }
-    .tab-btn {
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
       flex-shrink: 0;
-      padding: 9px 16px;
-      border-radius: 50px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--fg-muted);
-      font-size: 13px;
-      font-family: 'Space Grotesk', sans-serif;
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1.5px solid #e2e8f0;
+      background: white;
+      font-size: 12.5px;
+      font-family: 'Inter', sans-serif;
       font-weight: 500;
+      color: #64748b;
       cursor: pointer;
-      transition: all 0.3s;
-      white-space: nowrap;
+      transition: all 0.2s;
     }
-    .tab-btn:hover { border-color: rgba(255,255,255,0.15); color: var(--fg); }
-    .tab-btn.active {
-      background: var(--accent);
-      color: #0a0f1a;
-      border-color: var(--accent);
-      font-weight: 600;
-      box-shadow: 0 0 16px var(--accent-glow);
+    .tab:active { transform: scale(0.96); }
+    .tab.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
     }
 
-    /* ===== SECTION TITLE ===== */
-    .section-title {
-      font-size: 15px;
+    /* ===== SECTION LABEL ===== */
+    .label {
+      font-size: 13px;
       font-weight: 600;
-      color: var(--fg-muted);
-      margin: 20px 0 12px;
+      color: #64748b;
+      margin: 16px 0 10px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
-    .section-title i { font-size: 14px; }
-    .section-count {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: var(--fg-muted);
-      background: rgba(255,255,255,0.05);
+    .label .count {
+      background: #e2e8f0;
+      color: #475569;
+      font-size: 11px;
       padding: 2px 8px;
       border-radius: 20px;
+      font-weight: 600;
     }
 
-    /* ===== SHORTCUT CARDS ===== */
-    .shortcut-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .shortcut-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px;
+    /* ===== CARDS ===== */
+    .card-list { display: flex; flex-direction: column; gap: 8px; }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 14px;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-      position: relative;
-      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      transition: all 0.2s;
+      border-left: 4px solid #2563eb;
       opacity: 0;
-      transform: translateY(16px);
-      animation: cardIn 0.4s forwards;
+      transform: translateY(10px);
+      animation: fadeUp 0.3s forwards;
     }
-    .shortcut-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 100%;
-      border-radius: 0 4px 4px 0;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .shortcut-card:hover::before,
-    .shortcut-card:active::before { opacity: 1; }
-    .shortcut-card:hover {
-      background: var(--bg-card-hover);
-      border-color: rgba(255,255,255,0.1);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-    }
-    .shortcut-card.learned {
-      border-color: rgba(0, 230, 138, 0.2);
-    }
-    .shortcut-card.learned .learned-badge { display: flex; }
-
-    /* Warna per kategori */
-    .shortcut-card[data-cat="umum"]::before { background: var(--accent); }
-    .shortcut-card[data-cat="word"]::before { background: var(--cyan); }
-    .shortcut-card[data-cat="excel"]::before { background: var(--green); }
-    .shortcut-card[data-cat="browser"]::before { background: var(--orange); }
-    .shortcut-card[data-cat="windows"]::before { background: var(--pink); }
-    .shortcut-card[data-cat="file"]::before { background: var(--yellow); }
-
-    @keyframes cardIn {
+    .card:active { transform: scale(0.98); background: #f8fafc; }
+    .card.learned { border-left-color: #22c55e; background: #f0fdf4; }
+    @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
-
     .card-top {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
     }
-    .card-left { flex: 1; min-width: 0; }
-    .card-name {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      line-height: 1.3;
-    }
-    .card-desc {
-      font-size: 12.5px;
-      color: var(--fg-muted);
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
+    .card-info { flex: 1; }
+    .card-name { font-size: 14.5px; font-weight: 600; margin-bottom: 3px; }
+    .card-desc { font-size: 12px; color: #64748b; line-height: 1.4; }
     .card-keys {
       display: flex;
-      flex-shrink: 0;
-      gap: 4px;
+      gap: 3px;
       align-items: center;
+      flex-shrink: 0;
     }
     .key {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 36px;
-      height: 34px;
-      padding: 0 8px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-bottom-width: 3px;
-      border-radius: 7px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
+      min-width: 32px;
+      height: 28px;
+      padding: 0 6px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      border-bottom-width: 2px;
+      border-radius: 5px;
+      font-size: 11px;
       font-weight: 600;
-      color: var(--fg);
-      transition: all 0.15s;
+      color: #1e3a5f;
+      font-family: 'Courier New', monospace;
     }
-    .key-plus {
-      color: var(--fg-muted);
-      font-size: 11px;
-      font-weight: 400;
-    }
-    .shortcut-card:active .key {
-      transform: translateY(2px);
-      border-bottom-width: 1px;
-      background: var(--accent-dim);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .learned-badge {
-      display: none;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      color: var(--accent);
-      margin-top: 8px;
-    }
-    .learned-badge i { font-size: 12px; }
-
-    .card-cat-tag {
+    .key-plus { color: #94a3b8; font-size: 10px; }
+    .card-tag {
+      display: inline-block;
       font-size: 10.5px;
-      padding: 3px 8px;
+      padding: 2px 8px;
       border-radius: 20px;
       font-weight: 500;
       margin-top: 8px;
-      display: inline-block;
+      background: #eff6ff;
+      color: #2563eb;
     }
-    .cat-umum { background: var(--accent-dim); color: var(--accent); }
-    .cat-word { background: var(--cyan-dim); color: var(--cyan); }
-    .cat-excel { background: rgba(34,197,94,0.12); color: #22c55e; }
-    .cat-browser { background: var(--orange-dim); color: var(--orange); }
-    .cat-windows { background: var(--pink-dim); color: var(--pink); }
-    .cat-file { background: var(--yellow-dim); color: var(--yellow); }
+    .card-check {
+      font-size: 11px;
+      color: #22c55e;
+      margin-top: 6px;
+      display: none;
+    }
+    .card.learned .card-check { display: block; }
 
-    /* ===== DETAIL MODAL ===== */
-    .modal-overlay {
+    /* ===== EMPTY ===== */
+    .empty {
+      text-align: center;
+      padding: 40px 20px;
+      color: #94a3b8;
+    }
+    .empty i { font-size: 40px; margin-bottom: 12px; display: block; }
+    .empty p { font-size: 14px; }
+
+    /* ===== MODAL ===== */
+    .overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(8px);
+      background: rgba(0,0,0,0.4);
       z-index: 100;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.3s;
+      transition: opacity 0.25s;
     }
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .modal-sheet {
+    .overlay.open { opacity: 1; pointer-events: auto; }
+    .sheet {
       width: 100%;
       max-width: 480px;
-      max-height: 85vh;
-      background: #151d2e;
-      border-radius: 20px 20px 0 0;
-      padding: 12px 20px 32px;
+      max-height: 80vh;
+      background: white;
+      border-radius: 16px 16px 0 0;
+      padding: 16px 20px 28px;
       overflow-y: auto;
       transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
     }
-    .modal-overlay.open .modal-sheet {
-      transform: translateY(0);
-    }
-    .modal-handle {
-      width: 40px; height: 4px;
-      background: rgba(255,255,255,0.15);
+    .overlay.open .sheet { transform: translateY(0); }
+    .sheet-handle {
+      width: 36px; height: 4px;
+      background: #cbd5e1;
       border-radius: 4px;
-      margin: 0 auto 18px;
+      margin: 0 auto 16px;
     }
-    .modal-keys {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin: 10px 0 20px;
-      flex-wrap: wrap;
+    .sheet-tag {
+      text-align: center;
+      margin-bottom: 6px;
     }
-    .modal-keys .key {
-      min-width: 52px;
-      height: 48px;
-      font-size: 16px;
-      border-radius: 10px;
-    }
-    .modal-keys .key-plus {
-      font-size: 16px;
-      align-self: center;
-    }
-    .modal-title {
-      font-size: 22px;
+    .sheet-title {
+      font-size: 20px;
       font-weight: 700;
       text-align: center;
-      margin-bottom: 4px;
+      color: #1e3a5f;
+      margin-bottom: 12px;
     }
-    .modal-cat {
-      text-align: center;
-      margin-bottom: 4px;
+    .sheet-keys {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
-    .modal-desc {
-      font-size: 14.5px;
-      color: var(--fg-muted);
+    .sheet-keys .key {
+      min-width: 44px;
+      height: 38px;
+      font-size: 14px;
+    }
+    .sheet-keys .key-plus { font-size: 14px; }
+    .sheet-desc {
+      font-size: 14px;
+      color: #475569;
       line-height: 1.7;
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    .modal-tip {
-      background: var(--accent-dim);
-      border: 1px solid rgba(0,230,138,0.15);
-      border-radius: var(--radius-sm);
-      padding: 14px;
-      margin-bottom: 20px;
+    .sheet-tip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
     }
-    .modal-tip-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .sheet-tip b {
+      font-size: 12px;
+      color: #2563eb;
+      display: block;
+      margin-bottom: 4px;
     }
-    .modal-tip-text {
-      font-size: 13px;
-      color: var(--fg-muted);
+    .sheet-tip p {
+      font-size: 12.5px;
+      color: #475569;
       line-height: 1.6;
     }
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-    }
-    .btn-learn {
+    .sheet-btns { display: flex; gap: 8px; }
+    .sbtn {
       flex: 1;
-      padding: 14px;
-      border-radius: var(--radius);
+      padding: 12px;
+      border-radius: 8px;
       border: none;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 15px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      transition: all 0.2s;
     }
-    .btn-learn.primary {
-      background: var(--accent);
-      color: #0a0f1a;
-      box-shadow: 0 4px 16px var(--accent-glow);
-    }
-    .btn-learn.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px var(--accent-glow);
-    }
-    .btn-learn.primary.done {
-      background: rgba(0,230,138,0.15);
-      color: var(--accent);
-      box-shadow: none;
-    }
-    .btn-learn.secondary {
-      background: rgba(255,255,255,0.06);
-      color: var(--fg);
-      border: 1px solid var(--border);
-    }
-    .btn-learn.secondary:hover {
-      background: rgba(255,255,255,0.1);
-    }
+    .sbtn:active { transform: scale(0.97); }
+    .sbtn-blue { background: #2563eb; color: white; }
+    .sbtn-blue.done { background: #dcfce7; color: #16a34a; }
+    .sbtn-gray { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
 
     /* ===== TOAST ===== */
     .toast {
       position: fixed;
-      bottom: 90px;
+      bottom: 80px;
       left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #1e293b;
-      color: var(--fg);
-      padding: 12px 20px;
-      border-radius: 50px;
-      font-size: 13.5px;
+      transform: translateX(-50%) translateY(16px);
+      background: #1e3a5f;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
       font-weight: 500;
       z-index: 200;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-      border: 1px solid var(--border);
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ===== TIP CARDS ===== */
+    .tip-card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 10px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      border-left: 4px solid #2563eb;
+    }
+    .tip-num {
+      width: 28px; height: 28px;
+      background: #2563eb;
+      color: white;
+      border-radius: 6px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    .toast i { color: var(--accent); }
-
-    /* ===== EMPTY STATE ===== */
-    .empty-state {
-      text-align: center;
-      padding: 50px 20px;
-      color: var(--fg-muted);
-    }
-    .empty-state i {
-      font-size: 48px;
-      margin-bottom: 16px;
-      opacity: 0.3;
-    }
-    .empty-state p {
-      font-size: 15px;
-      line-height: 1.6;
-    }
+    .tip-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+    .tip-text { font-size: 13px; color: #64748b; line-height: 1.6; }
 
     /* ===== BOTTOM NAV ===== */
-    .bottom-nav {
+    .bottomnav {
       position: fixed;
       bottom: 0; left: 0;
       width: 100%;
-      background: rgba(10, 15, 26, 0.92);
-      backdrop-filter: blur(20px);
-      border-top: 1px solid var(--border);
+      background: white;
+      border-top: 1px solid #e2e8f0;
       z-index: 50;
       display: flex;
       justify-content: center;
-      padding: 8px 0 env(safe-area-inset-bottom, 8px);
+      padding: 6px 0 max(env(safe-area-inset-bottom), 6px);
     }
     .nav-inner {
       display: flex;
-      gap: 4px;
       max-width: 480px;
       width: 100%;
-      padding: 0 12px;
     }
-    .nav-btn {
+    .nbtn {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
-      padding: 8px 4px;
+      gap: 2px;
+      padding: 6px;
       background: none;
       border: none;
-      color: var(--fg-muted);
+      color: #94a3b8;
       font-size: 11px;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
       cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nbtn i { font-size: 18px; }
+    .nbtn.active { color: #2563eb; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: #1e3a5f;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 30px;
       border-radius: 10px;
-      transition: all 0.3s;
     }
-    .nav-btn i { font-size: 19px; transition: all 0.3s; }
-    .nav-btn.active { color: var(--accent); }
-    .nav-btn.active i { transform: scale(1.1); }
-
-    /* ===== PAGE: TIPS ===== */
-    .tips-page, .bookmark-page { display: none; }
-    .tips-page.active, .bookmark-page.active { display: block; }
-    .shortcut-page { display: block; }
-    .shortcut-page.hidden { display: none; }
-
-    .tip-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 18px;
-      margin-bottom: 12px;
-      transition: all 0.3s;
-    }
-    .tip-card:hover {
-      background: var(--bg-card-hover);
-      border-color: rgba(255,255,255,0.1);
-    }
-    .tip-num {
-      width: 32px; height: 32px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
+    .footer .f-logo {
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 4px;
     }
-    .tip-title {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-      line-height: 1.3;
-    }
-    .tip-text {
-      font-size: 13.5px;
-      color: var(--fg-muted);
-      line-height: 1.7;
-    }
+    .footer .f-logo i { color: #60a5fa; }
+    .footer .f-sub { font-size: 12px; opacity: 0.6; }
+    .footer .f-copy { font-size: 11px; opacity: 0.4; margin-top: 8px; }
 
-    /* ===== INSTALL BANNER ===== */
-    .install-banner {
-      background: linear-gradient(135deg, rgba(0,230,138,0.12), rgba(34,211,238,0.08));
-      border: 1px solid rgba(0,230,138,0.15);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      margin-bottom: 16px;
-      display: none;
-      align-items: center;
-      gap: 12px;
-    }
-    .install-banner.show { display: flex; }
-    .install-banner i {
-      font-size: 24px;
-      color: var(--accent);
-      flex-shrink: 0;
-    }
-    .install-banner-text { flex: 1; }
-    .install-banner-text strong {
-      font-size: 14px;
-      display: block;
-      margin-bottom: 2px;
-    }
-    .install-banner-text span {
-      font-size: 12px;
-      color: var(--fg-muted);
-    }
-    .install-banner button {
-      flex-shrink: 0;
-      padding: 8px 16px;
-      background: var(--accent);
-      color: #0a0f1a;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .install-banner button:active { transform: scale(0.95); }
+    /* ===== PAGE VISIBILITY ===== */
+    .page { display: none; }
+    .page.active { display: block; }
 
-    /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-
-    /* ===== REDUCED MOTION ===== */
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
-      }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background atmosphere -->
-  <div class="bg-glow">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
-  <div class="noise-overlay"></div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <i class="fas fa-laptop"></i>
+    <span>LaptopPedia</span>
+    <small>Panduan Pemula</small>
+  </nav>
 
-  <!-- App Container -->
-  <div class="app-container">
+  <div class="container">
 
-    <!-- Header -->
-    <header class="app-header">
-      <div class="logo-row">
-        <div class="logo-icon"><i class="fas fa-laptop"></i></div>
-        <span class="logo-text">LaptopPedia</span>
-      </div>
-      <p class="logo-sub">Panduan Lengkap untuk Pemula</p>
-    </header>
+    <!-- PAGE: SHORTCUTS -->
+    <div class="page active" id="pgShortcuts">
 
-    <!-- Install Banner (muncul kalau bisa di-install) -->
-    <div class="install-banner" id="installBanner">
-      <i class="fas fa-download"></i>
-      <div class="install-banner-text">
-        <strong>Install Aplikasi Ini</strong>
-        <span>Akses lebih cepat langsung dari home screen</span>
-      </div>
-      <button onclick="installApp()">Install</button>
-    </div>
-
-    <!-- ===== PAGE: SHORTCUTS ===== -->
-    <div class="shortcut-page" id="pageShortcuts">
-
-      <!-- Progress -->
-      <div class="progress-section">
+      <div class="progress-box">
         <div class="progress-top">
-          <span class="progress-label"><i class="fas fa-graduation-cap"></i> Progres Belajar</span>
-          <span class="progress-count" id="progressText">0 / 0</span>
+          <span><i class="fas fa-graduation-cap"></i> Progres Belajar</span>
+          <b id="progText">0 / 0</b>
         </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progressBar"></div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progBar"></div>
         </div>
       </div>
 
-      <!-- Search -->
-      <div class="search-wrap">
+      <div class="search-box">
         <i class="fas fa-search"></i>
-        <input type="text" class="search-input" id="searchInput" placeholder="Cari shortcut... (contoh: copy, paste)" aria-label="Cari shortcut">
+        <input type="text" id="searchInput" placeholder="Cari shortcut..." aria-label="Cari shortcut">
       </div>
 
-      <!-- Category Tabs -->
-      <nav class="tabs-scroll" id="tabsScroll" aria-label="Kategori shortcut">
-        <button class="tab-btn active" data-cat="semua">Semua</button>
-        <button class="tab-btn" data-cat="umum"><i class="fas fa-keyboard"></i> Umum</button>
-        <button class="tab-btn" data-cat="word"><i class="fas fa-file-word"></i> Word</button>
-        <button class="tab-btn" data-cat="excel"><i class="fas fa-file-excel"></i> Excel</button>
-        <button class="tab-btn" data-cat="browser"><i class="fas fa-globe"></i> Browser</button>
-        <button class="tab-btn" data-cat="windows"><i class="fab fa-windows"></i> Windows</button>
-        <button class="tab-btn" data-cat="file"><i class="fas fa-folder"></i> File</button>
-      </nav>
+      <div class="tabs" id="tabs">
+        <button class="tab active" data-cat="semua">Semua</button>
+        <button class="tab" data-cat="umum">Umum</button>
+        <button class="tab" data-cat="word">Word</button>
+        <button class="tab" data-cat="excel">Excel</button>
+        <button class="tab" data-cat="browser">Browser</button>
+        <button class="tab" data-cat="windows">Windows</button>
+        <button class="tab" data-cat="file">File</button>
+      </div>
 
-      <!-- Shortcut List -->
-      <div class="section-title">
+      <div class="label">
         <i class="fas fa-bolt"></i> Daftar Shortcut
-        <span class="section-count" id="resultCount">0</span>
+        <span class="count" id="resCount">0</span>
       </div>
-      <div class="shortcut-list" id="shortcutList"></div>
+      <div class="card-list" id="cardList"></div>
     </div>
 
-    <!-- ===== PAGE: TIPS ===== -->
-    <div class="tips-page" id="pageTips">
-      <div class="section-title" style="margin-top:10px;">
-        <i class="fas fa-lightbulb"></i> Tips Dasar Laptop untuk Pemula
+    <!-- PAGE: TIPS -->
+    <div class="page" id="pgTips">
+      <div class="label" style="margin-top:4px;">
+        <i class="fas fa-lightbulb"></i> Tips Dasar Laptop
       </div>
       <div id="tipsList"></div>
+      <div class="footer">
+        <div class="f-logo"><i class="fas fa-laptop"></i> LaptopPedia</div>
+        <div class="f-sub">Panduan Lengkap Shortcut Laptop untuk Pemula</div>
+        <div class="f-copy">&copy; LaptopPedia 2025 &mdash; MhmmdMi</div>
+      </div>
     </div>
 
-    <!-- ===== PAGE: BOOKMARKS ===== -->
-    <div class="bookmark-page" id="pageBookmarks">
-      <div class="section-title" style="margin-top:10px;">
+    <!-- PAGE: LEARNED -->
+    <div class="page" id="pgLearned">
+      <div class="label" style="margin-top:4px;">
         <i class="fas fa-check-circle"></i> Sudah Dipelajari
-        <span class="section-count" id="bookmarkCount">0</span>
+        <span class="count" id="learnCount">0</span>
       </div>
-      <div class="shortcut-list" id="bookmarkList"></div>
-      <div class="empty-state" id="bookmarkEmpty">
+      <div class="card-list" id="learnList"></div>
+      <div class="empty" id="learnEmpty">
         <i class="fas fa-book-open"></i>
-        <p>Belum ada shortcut yang ditandai sudah dipelajari.<br>Klik kartu shortcut lalu tekan "Sudah Paham".</p>
+        <p>Belum ada yang ditandai.<br>Klik shortcut lalu tekan "Sudah Paham".</p>
+      </div>
+      <div class="footer">
+        <div class="f-logo"><i class="fas fa-laptop"></i> LaptopPedia</div>
+        <div class="f-sub">Panduan Lengkap Shortcut Laptop untuk Pemula</div>
+        <div class="f-copy">&copy; LaptopPedia 2025 &mdash; MhmmdMi</div>
       </div>
     </div>
 
   </div>
 
-  <!-- Detail Modal -->
-  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
-    <div class="modal-sheet" id="modalSheet">
-      <div class="modal-handle"></div>
-      <div class="modal-cat" id="modalCat"></div>
-      <div class="modal-title" id="modalTitle"></div>
-      <div class="modal-keys" id="modalKeys"></div>
-      <div class="modal-desc" id="modalDesc"></div>
-      <div class="modal-tip" id="modalTip">
-        <div class="modal-tip-title"><i class="fas fa-lightbulb"></i> Tips Penggunaan</div>
-        <div class="modal-tip-text" id="modalTipText"></div>
+  <!-- Modal -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="sheet" id="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-tag" id="mTag"></div>
+      <div class="sheet-title" id="mTitle"></div>
+      <div class="sheet-keys" id="mKeys"></div>
+      <div class="sheet-desc" id="mDesc"></div>
+      <div class="sheet-tip">
+        <b><i class="fas fa-lightbulb"></i> Tips Penggunaan</b>
+        <p id="mTip"></p>
       </div>
-      <div class="modal-actions">
-        <button class="btn-learn secondary" onclick="closeModal()"><i class="fas fa-times"></i> Tutup</button>
-        <button class="btn-learn primary" id="btnLearn" onclick="toggleLearned()">
+      <div class="sheet-btns">
+        <button class="sbtn sbtn-gray" onclick="closeModal()">Tutup</button>
+        <button class="sbtn sbtn-blue" id="btnLearn" onclick="toggleLearn()">
           <i class="fas fa-check"></i> Sudah Paham
         </button>
       </div>
@@ -836,704 +536,225 @@
   </div>
 
   <!-- Toast -->
-  <div class="toast" id="toast">
-    <i class="fas fa-check-circle"></i>
-    <span id="toastText"></span>
-  </div>
+  <div class="toast" id="toast"></div>
 
-  <!-- Bottom Navigation -->
-  <nav class="bottom-nav" aria-label="Navigasi utama">
+  <!-- Bottom Nav -->
+  <nav class="bottomnav" aria-label="Navigasi">
     <div class="nav-inner">
-      <button class="nav-btn active" data-page="shortcuts" aria-label="Shortcut">
-        <i class="fas fa-keyboard"></i>
-        <span>Shortcut</span>
-      </button>
-      <button class="nav-btn" data-page="tips" aria-label="Tips">
-        <i class="fas fa-lightbulb"></i>
-        <span>Tips</span>
-      </button>
-      <button class="nav-btn" data-page="bookmarks" aria-label="Sudah Dipelajari">
-        <i class="fas fa-check-circle"></i>
-        <span>Pelajari</span>
-      </button>
+      <button class="nbtn active" data-page="pgShortcuts"><i class="fas fa-keyboard"></i><span>Shortcut</span></button>
+      <button class="nbtn" data-page="pgTips"><i class="fas fa-lightbulb"></i><span>Tips</span></button>
+      <button class="nbtn" data-page="pgLearned"><i class="fas fa-check-circle"></i><span>Pelajari</span></button>
     </div>
   </nav>
 
   <script>
-    // ===== DATA SHORTCUT =====
-    const shortcuts = [
-      // -- UMUM --
-      {
-        id: 1, cat: 'umum', name: 'Select All (Pilih Semua)',
-        keys: ['Ctrl', 'A'],
-        desc: 'Memilih semua teks, file, atau objek yang ada di area aktif.',
-        detail: 'Sangat berguna saat ingin meng-copy seluruh dokumen, menghapus semua teks sekaligus, atau memilih semua file di folder. Bekerja di hampir semua aplikasi.',
-        tip: 'Coba di browser: tekan Ctrl+A lalu Ctrl+C untuk copy semua isi halaman.'
-      },
-      {
-        id: 2, cat: 'umum', name: 'Copy (Salin)',
-        keys: ['Ctrl', 'C'],
-        desc: 'Menyalin teks, file, atau gambar yang dipilih ke clipboard.',
-        detail: 'Data yang di-copy tersimpan di clipboard dan bisa di-paste berkali-kali sampai kamu meng-copy hal lain. Tidak menghapus data asli.',
-        tip: 'Kalau Ctrl+C tidak jalan, coba klik kanan → Copy sebagai alternatif.'
-      },
-      {
-        id: 3, cat: 'umum', name: 'Paste (Tempel)',
-        keys: ['Ctrl', 'V'],
-        desc: 'Menempelkan data yang sudah di-copy atau di-cut dari clipboard.',
-        detail: 'Paste akan menempatkan salinan data terakhir yang kamu copy. Bisa dipaste berulang kali ke tempat yang berbeda.',
-        tip: 'Gunakan Ctrl+Shift+V di browser untuk paste tanpa format (hanya teks).'
-      },
-      {
-        id: 4, cat: 'umum', name: 'Cut (Potong)',
-        keys: ['Ctrl', 'X'],
-        desc: 'Memotong teks atau file dari lokasi asli (akan terhapus dari tempat semula).',
-        detail: 'Berbeda dengan Copy, Cut akan menghapus data dari lokasi asli setelah di-paste. Cocok untuk memindahkan file tanpa duplikasi.',
-        tip: 'Saat memindahkan file, Cut lebih efisien daripada Copy lalu hapus manual.'
-      },
-      {
-        id: 5, cat: 'umum', name: 'Undo (Batalkan)',
-        keys: ['Ctrl', 'Z'],
-        desc: 'Membatalkan aksi terakhir yang baru saja dilakukan.',
-        detail: 'Bisa membatalkan ketikan, penghapusan, pemindahan file, dan aksi lainnya. Banyak aplikasi mendukung multiple undo (tekan berkali-kali).',
-        tip: 'Jangan panik kalau salah hapus! Langsung tekan Ctrl+Z untuk mengembalikan.'
-      },
-      {
-        id: 6, cat: 'umum', name: 'Redo (Ulangi)',
-        keys: ['Ctrl', 'Y'],
-        desc: 'Mengulang aksi yang tadi dibatalkan dengan Undo.',
-        detail: 'Kebalikan dari Undo. Kalau kamu kebablasan undo, Redo bisa mengembalikan lagi. Kadang juga bisa dengan Ctrl+Shift+Z.',
-        tip: 'Ctrl+Y = redo di kebanyakan aplikasi. Di beberapa aplikasi desain, pakai Ctrl+Shift+Z.'
-      },
-      {
-        id: 7, cat: 'umum', name: 'Save (Simpan)',
-        keys: ['Ctrl', 'S'],
-        desc: 'Menyimpan file yang sedang dikerjakan.',
-        detail: 'Kebiasaan menekan Ctrl+S secara berkala sangat penting agar tidak kehilangan data jika listrik mati atau aplikasi crash.',
-        tip: 'Biasakan tekan Ctrl+S setiap beberapa menit. Lebih baik aman daripada menyesal!'
-      },
-      {
-        id: 8, cat: 'umum', name: 'Find / Cari',
-        keys: ['Ctrl', 'F'],
-        desc: 'Membuka fitur pencarian untuk menemukan teks tertentu.',
-        detail: 'Sangat berguna di dokumen panjang, browser, dan bahkan file manager. Bisa mencari kata tertentu dengan cepat tanpa scroll manual.',
-        tip: 'Di browser, gunakan ini untuk menemukan kata kunci di halaman web yang panjang.'
-      },
-      {
-        id: 9, cat: 'umum', name: 'Print (Cetak)',
-        keys: ['Ctrl', 'P'],
-        desc: 'Membuka dialog cetak / print.',
-        detail: 'Bisa untuk mencetak ke kertas atau menyimpan sebagai PDF. Di browser, juga bisa print halaman web.',
-        tip: 'Tidak punya printer? Pilih "Save as PDF" sebagai printer untuk menyimpan dokumen.'
-      },
-      {
-        id: 10, cat: 'umum', name: 'Bold (Tebal)',
-        keys: ['Ctrl', 'B'],
-        desc: 'Membuat teks yang dipilih menjadi tebal (bold).',
-        detail: 'Bekerja di Word, Excel, email, dan banyak aplikasi lain. Toggle: tekan sekali jadi tebal, tekan lagi jadi normal.',
-        tip: 'Di beberapa chat app seperti WhatsApp Web, Ctrl+B juga berfungsi untuk bold.'
-      },
-      {
-        id: 11, cat: 'umum', name: 'Italic (Miring)',
-        keys: ['Ctrl', 'I'],
-        desc: 'Membuat teks yang dipilih menjadi miring (italic).',
-        detail: 'Sama seperti Bold, ini adalah toggle. Sering digunakan untuk menulis judul buku, istilah asing, atau penekanan.',
-        tip: 'Kombinasi Ctrl+B dan Ctrl+I bisa membuat teks tebal miring sekaligus.'
-      },
-      {
-        id: 12, cat: 'umum', name: 'Underline (Garis Bawah)',
-        keys: ['Ctrl', 'U'],
-        desc: 'Membuat garis bawah pada teks yang dipilih.',
-        detail: 'Toggle seperti Bold dan Italic. Di beberapa aplikasi modern, garis bawah kurang digunakan karena diasosiasikan dengan link.',
-        tip: 'Hindari terlalu banyak underline karena bisa membingungkan pembaca (dikira link).'
-      },
-      {
-        id: 13, cat: 'umum', name: 'Tab (Indent)',
-        keys: ['Tab'],
-        desc: 'Memberikan jarak indentasi pada teks atau berpindah antar kolom.',
-        detail: 'Di text editor: menambah indent. Di Excel: berpindah ke sel berikutnya. Di browser: berpindah antar link/button.',
-        tip: 'Shift+Tab untuk indent ke kiri (reverse tab) atau pindah ke elemen sebelumnya.'
-      },
-      {
-        id: 14, cat: 'umum', name: 'Alt + Tab (Pindah Jendela)',
-        keys: ['Alt', 'Tab'],
-        desc: 'Berpindah cepat antar aplikasi yang sedang terbuka.',
-        detail: 'Tahan Alt lalu tekan Tab berulang kali untuk melihat preview jendela aplikasi. Lepaskan Alt di jendela yang diinginkan.',
-        tip: 'Alt+Shift+Tab untuk berpindah ke arah sebaliknya (ke jendela sebelumnya).'
-      },
-
-      // -- WORD --
-      {
-        id: 15, cat: 'word', name: 'Tengahkan Teks',
-        keys: ['Ctrl', 'E'],
-        desc: 'Membuat teks menjadi rata tengah.',
-        detail: 'Sering digunakan untuk judul, heading, atau teks yang perlu ditampilkan di tengah halaman. Toggle: tekan lagi untuk kembali.',
-        tip: 'Ctrl+L = rata kiri, Ctrl+R = rata kanan, Ctrl+J = rata kiri-kanan (justify).'
-      },
-      {
-        id: 16, cat: 'word', name: 'New Document',
-        keys: ['Ctrl', 'N'],
-        desc: 'Membuat dokumen baru kosong.',
-        detail: 'Langsung membuka jendela dokumen baru tanpa perlu klik File → New. Lebih cepat saat ingin mulai menulis.',
-        tip: 'Di browser, Ctrl+N membuka jendela browser baru, bukan dokumen.'
-      },
-      {
-        id: 17, cat: 'word', name: 'Open File (Buka)',
-        keys: ['Ctrl', 'O'],
-        desc: 'Membuka dialog untuk memilih file yang akan dibuka.',
-        detail: 'Muncul file explorer untuk memilih dokumen yang ingin dibuka atau diedit.',
-        tip: 'Huruf O bukan nol. Sering bingung pemula karena O dan 0 mirip.'
-      },
-      {
-        id: 18, cat: 'word', name: 'Replace (Ganti)',
-        keys: ['Ctrl', 'H'],
-        desc: 'Mencari dan mengganti teks secara otomatis.',
-        detail: 'Sangat powerful! Misalnya kamu salah menulis nama "Jon" dan ingin mengganti semua jadi "John" sekaligus di seluruh dokumen.',
-        tip: 'Klik "Replace All" untuk mengganti semua sekaligus. Tapi hati-hati, cek dulu hasilnya.'
-      },
-      {
-        id: 19, cat: 'word', name: 'Font Size Besar',
-        keys: ['Ctrl', 'Shift', '>'],
-        desc: 'Memperbesar ukuran font teks yang dipilih.',
-        detail: 'Setiap tekan akan memperbesar font satu tingkat. Lebih cepat daripada membuka dropdown font size.',
-        tip: 'Ctrl+Shift+< untuk memperkecil font.'
-      },
-      {
-        id: 20, cat: 'word', name: 'Insert Hyperlink',
-        keys: ['Ctrl', 'K'],
-        desc: 'Menyisipkan link ke teks yang dipilih.',
-        detail: 'Muncul dialog untuk memasukkan URL. Teks yang dipilih akan menjadi clickable link berwarna biru.',
-        tip: 'Klik link sambil tekan Ctrl untuk langsung membukanya di browser.'
-      },
-
-      // -- EXCEL --
-      {
-        id: 21, cat: 'excel', name: 'Select All Cells',
-        keys: ['Ctrl', 'A'],
-        desc: 'Memilih seluruh sel yang berisi data di spreadsheet.',
-        detail: 'Di Excel, Ctrl+A pertama memilih area data. Tekan sekali lagi untuk memilih seluruh sheet termasuk sel kosong.',
-        tip: 'Klik sudut kiri atas (antara kolom A dan baris 1) juga bisa memilih semua sel.'
-      },
-      {
-        id: 22, cat: 'excel', name: 'Bold di Excel',
-        keys: ['Ctrl', 'B'],
-        desc: 'Membuat teks di sel menjadi tebal.',
-        detail: 'Sama seperti di Word, tapi di Excel biasanya dipakai untuk header kolom agar terlihat jelas.',
-        tip: 'Kombinasi dengan warna background (Ctrl+1 untuk format) bikin header semakin jelas.'
-      },
-      {
-        id: 23, cat: 'excel', name: 'Sum (Jumlah)',
-        keys: ['Alt', '='],
-        desc: 'Menggunakan fungsi SUM untuk menjumlahkan angka di atas sel aktif.',
-        detail: 'Otomatis mendeteksi range angka di atas dan membuat formula =SUM(). Sangat cepat untuk total.',
-        tip: 'Setelah muncul formula, tekan Enter untuk hasilnya. Bisa edit range manual kalau salah.'
-      },
-      {
-        id: 24, cat: 'excel', name: 'Format Cells',
-        keys: ['Ctrl', '1'],
-        desc: 'Membuka dialog format sel untuk mengubah tampilan.',
-        detail: 'Bisa mengubah format angka (rupiah, persen, tanggal), warna, border, alignment, dan banyak lagi.',
-        tip: 'Angka 1 di atas huruf, bukan di numpad. Ini salah satu shortcut Excel terpenting.'
-      },
-      {
-        id: 25, cat: 'excel', name: 'Fill Down (Isi ke Bawah)',
-        keys: ['Ctrl', 'D'],
-        desc: 'Mengisi sel di bawah dengan isi sel di atasnya.',
-        detail: 'Cocok untuk menyalin formula ke banyak baris sekaligus. Pilih range lalu tekan Ctrl+D.',
-        tip: 'Ctrl+R untuk Fill Right (isi ke kanan), berguna untuk menyalin formula ke kolom sebelah.'
-      },
-      {
-        id: 26, cat: 'excel', name: 'Insert Row/Column',
-        keys: ['Ctrl', 'Shift', '+'],
-        desc: 'Menyisipkan baris atau kolom baru.',
-        detail: 'Akan menyisipkan baris baru di atas sel aktif, atau kolom baru di kiri sel aktif.',
-        tip: 'Pilih beberapa baris/kolom dulu kalau ingin menyisipkan lebih dari satu sekaligus.'
-      },
-
-      // -- BROWSER --
-      {
-        id: 27, cat: 'browser', name: 'Buka Tab Baru',
-        keys: ['Ctrl', 'T'],
-        desc: 'Membuka tab baru di browser.',
-        detail: 'Lebih cepat daripada klik tombol + di browser. Tab baru akan langsung fokus ke address bar.',
-        tip: 'Ctrl+W untuk menutup tab yang sedang aktif. Ctrl+Shift+T untuk membuka tab yang baru ditutup.'
-      },
-      {
-        id: 28, cat: 'browser', name: 'Refresh (Muat Ulang)',
-        keys: ['F5'],
-        desc: 'Memuat ulang halaman web yang sedang dibuka.',
-        detail: 'Berguna kalau halaman tidak tampil sempurna atau ingin memperbarui konten. Ctrl+F5 untuk hard refresh (abaikan cache).',
-        tip: 'Kalau website error, coba Ctrl+Shift+R atau Ctrl+F5 untuk refresh total tanpa cache.'
-      },
-      {
-        id: 29, cat: 'browser', name: 'Zoom In (Perbesar)',
-        keys: ['Ctrl', '+'],
-        desc: 'Memperbesar tampilan halaman web.',
-        detail: 'Membantu membaca teks kecil. Browser mengingat zoom level per website. Bisa sampai 300-500%.',
-        tip: 'Ctrl+- untuk zoom out (perkecil), Ctrl+0 untuk reset ke ukuran normal (100%).'
-      },
-      {
-        id: 30, cat: 'browser', name: 'Buka Link di Tab Baru',
-        keys: ['Ctrl', 'Klik'],
-        desc: 'Mengklik link tapi membukanya di tab baru.',
-        detail: 'Tidak perlu klik kanan → Open in new tab. Cukup tahan Ctrl lalu klik link biasa.',
-        tip: 'Ctrl+Shift+Klik untuk buka di tab baru DAN langsung pindah ke tab tersebut.'
-      },
-      {
-        id: 31, cat: 'browser', name: 'History (Riwayat)',
-        keys: ['Ctrl', 'H'],
-        desc: 'Membuka halaman riwayat browsing.',
-        detail: 'Melihat semua website yang pernah dikunjungi. Bisa dicari dan dihapus. Berguna kalau lupa alamat website.',
-        tip: 'Di Chrome, Ctrl+Shift+Delete untuk langsung buka dialog hapus history.'
-      },
-      {
-        id: 32, cat: 'browser', name: 'Bookmark Halaman',
-        keys: ['Ctrl', 'D'],
-        desc: 'Menyimpan halaman web ke bookmark/favorit.',
-        detail: 'Muncul dialog konfirmasi. Bisa edit nama dan pilih folder. Cara cepat menyimpan website untuk dikunjungi lagi.',
-        tip: 'Ctrl+Shift+D untuk bookmark semua tab yang terbuka sekaligus ke folder baru.'
-      },
-
-      // -- WINDOWS --
-      {
-        id: 33, cat: 'windows', name: 'Lock Screen (Kunci)',
-        keys: ['Win', 'L'],
-        desc: 'Mengunci layar laptop secara instan.',
-        detail: 'Sangat penting untuk keamanan! Saat meninggalkan laptop sebentar, kunci saja. Password/PIN diperlukan untuk membuka.',
-        tip: 'Buat kebiasaan: setiap berdiri dari laptop, tekan Win+L. Lebih aman!'
-      },
-      {
-        id: 34, cat: 'windows', name: 'Task Manager',
-        keys: ['Ctrl', 'Shift', 'Esc'],
-        desc: 'Membuka Task Manager langsung.',
-        detail: 'Melihat aplikasi yang berjalan, penggunaan CPU/RAM, dan bisa memaksa tutup aplikasi yang tidak merespons (Not Responding).',
-        tip: 'Kalau laptop lambat, cek Task Manager untuk lihat aplikasi mana yang makan resource banyak.'
-      },
-      {
-        id: 35, cat: 'windows', name: 'Screenshot Layar',
-        keys: ['Win', 'Shift', 'S'],
-        desc: 'Mengambil tangkapan layar (screenshot) dengan area pilihan.',
-        detail: 'Layar akan gelap dan kamu bisa pilih area yang ingin di-screenshot. Hasilnya disimpan di clipboard, paste ke Paint/Word.',
-        tip: 'Snipping Tool lebih lengkap: bisa delay, highlight, dan save langsung ke file.'
-      },
-      {
-        id: 36, cat: 'windows', name: 'Show Desktop',
-        keys: ['Win', 'D'],
-        desc: 'Menampilkan desktop langsung (minimize semua jendela).',
-        detail: 'Tekan sekali: semua jendela ter-minimize. Tekan lagi: semua jendela kembali seperti semula. Toggle.',
-        tip: 'Ada juga cara klik garis tipis di ujung kanan taskbar untuk fungsi yang sama.'
-      },
-      {
-        id: 37, cat: 'windows', name: 'File Explorer',
-        keys: ['Win', 'E'],
-        desc: 'Membuka File Explorer langsung.',
-        detail: 'Lebih cepat daripada klik icon di taskbar atau cari di Start Menu. Langsung buka folder yang terakhir dibuka.',
-        tip: 'Di File Explorer, Alt+D untuk fokus ke address bar dan bisa langsung ketik lokasi folder.'
-      },
-      {
-        id: 38, cat: 'windows', name: 'Settings (Pengaturan)',
-        keys: ['Win', 'I'],
-        desc: 'Membuka aplikasi Settings/Pengaturan Windows.',
-        detail: 'Akses cepat ke pengaturan WiFi, display, bluetooth, akun, update, dan semua pengaturan Windows lainnya.',
-        tip: 'Di Windows 11, settings sudah lebih lengkap dan menggantikan Control Panel untuk sebagian besar fitur.'
-      },
-
-      // -- FILE --
-      {
-        id: 39, cat: 'file', name: 'Rename (Ubah Nama)',
-        keys: ['F2'],
-        desc: 'Mengubah nama file atau folder yang dipilih.',
-        detail: 'Klik file lalu tekan F2. Kursor akan otomatis di nama file, tinggal ketik nama baru lalu Enter.',
-        tip: 'Jangan hapus ekstensi file (misal .jpg, .docx) saat rename, atau file tidak bisa dibuka.'
-      },
-      {
-        id: 40, cat: 'file', name: 'Delete (Hapus)',
-        keys: ['Delete'],
-        desc: 'Menghapus file atau folder yang dipilih.',
-        detail: 'File akan masuk ke Recycle Bin dan masih bisa dikembalikan. Shift+Delete untuk hapus permanen (tanpa Recycle Bin).',
-        tip: 'Jangan pernah pakai Shift+Delete kecuali benar-benar yakin tidak butuh file itu lagi.'
-      },
-      {
-        id: 41, cat: 'file', name: 'Properties (Properti)',
-        keys: ['Alt', 'Enter'],
-        desc: 'Membuka dialog properti file atau folder.',
-        detail: 'Melihat ukuran file, lokasi, tanggal dibuat/dimodifikasi, atribut, dan informasi lainnya.',
-        tip: 'Di tab General, bisa lihat ukuran folder total beserta semua isi di dalamnya.'
-      },
-      {
-        id: 42, cat: 'file', name: 'Copy Path (Salin Lokasi)',
-        keys: ['Alt', 'D', 'Ctrl', 'C'],
-        desc: 'Menyalin lokasi/path lengkap dari folder yang sedang dibuka.',
-        detail: 'Alt+D fokus ke address bar, lalu Ctrl+C menyalin path-nya. Berguna saat perlu menulis lokasi file.',
-        tip: 'Di Windows 11, bisa klik kanan di file → "Copy as path" lebih mudah.'
-      },
-      {
-        id: 43, cat: 'file', name: 'Select Multiple (Pilih Banyak)',
-        keys: ['Ctrl', 'Klik'],
-        desc: 'Memilih beberapa file yang tidak berurutan.',
-        detail: 'Tahan Ctrl lalu klik file-file yang ingin dipilih satu per satu. Bisa lalu copy/cut/delete semua sekaligus.',
-        tip: 'Shift+Klik untuk pilih rentang: klik file pertama, lalu Shift+klik file terakhir.'
-      },
-      {
-        id: 44, cat: 'file', name: 'New Folder',
-        keys: ['Ctrl', 'Shift', 'N'],
-        desc: 'Membuat folder baru di lokasi yang sedang aktif.',
-        detail: 'Lebih cepat daripada klik kanan → New → Folder. Langsung bisa ketik nama folder baru.',
-        tip: 'Bikin kebiasaan folder yang rapi: Documents, Pictures, Downloads, Work, dsb.'
-      }
+    // ===== DATA =====
+    const data = [
+      { id:1, cat:"umum", name:"Select All (Pilih Semua)", keys:["Ctrl","A"], desc:"Memilih semua teks atau file di area aktif.", detail:"Bekerja di hampir semua aplikasi. Sangat berguna untuk copy seluruh dokumen atau hapus semua teks sekaligus.", tip:"Coba di browser: Ctrl+A lalu Ctrl+C untuk copy semua isi halaman." },
+      { id:2, cat:"umum", name:"Copy (Salin)", keys:["Ctrl","C"], desc:"Menyalin teks atau file ke clipboard.", detail:"Data yang di-copy bisa di-paste berkali-kali sampai kamu meng-copy hal lain. Tidak menghapus data asli.", tip:"Kalau Ctrl+C tidak jalan, coba klik kanan lalu pilih Copy." },
+      { id:3, cat:"umum", name:"Paste (Tempel)", keys:["Ctrl","V"], desc:"Menempelkan data yang sudah di-copy.", detail:"Paste menempatkan salinan data terakhir yang kamu copy. Bisa dipaste berulang kali ke tempat berbeda.", tip:"Gunakan Ctrl+Shift+V di browser untuk paste tanpa format." },
+      { id:4, cat:"umum", name:"Cut (Potong)", keys:["Ctrl","X"], desc:"Memotong teks atau file dari lokasi asli.", detail:"Berbeda dengan Copy, Cut menghapus data dari lokasi asli setelah di-paste. Cocok untuk memindahkan file.", tip:"Lebih efisien daripada Copy lalu hapus manual." },
+      { id:5, cat:"umum", name:"Undo (Batalkan)", keys:["Ctrl","Z"], desc:"Membatalkan aksi terakhir.", detail:"Bisa membatalkan ketikan, penghapusan, pemindahan file. Banyak aplikasi mendukung multiple undo.", tip:"Jangan panik kalau salah hapus! Langsung Ctrl+Z." },
+      { id:6, cat:"umum", name:"Redo (Ulangi)", keys:["Ctrl","Y"], desc:"Mengulang aksi yang dibatalkan Undo.", detail:"Kebalikan dari Undo. Kalau kebablasan undo, Redo bisa mengembalikan.", tip:"Di beberapa aplikasi desain, pakai Ctrl+Shift+Z." },
+      { id:7, cat:"umum", name:"Save (Simpan)", keys:["Ctrl","S"], desc:"Menyimpan file yang sedang dikerjakan.", detail:"Kebiasaan menekan Ctrl+S sangat penting agar tidak kehilangan data jika listrik mati.", tip:"Biasakan tekan Ctrl+S setiap beberapa menit!" },
+      { id:8, cat:"umum", name:"Find (Cari)", keys:["Ctrl","F"], desc:"Membuka fitur pencarian teks.", detail:"Berguna di dokumen panjang, browser, dan file manager. Cari kata tanpa scroll manual.", tip:"Di browser, gunakan untuk menemukan kata di halaman web panjang." },
+      { id:9, cat:"umum", name:"Print (Cetak)", keys:["Ctrl","P"], desc:"Membuka dialog cetak.", detail:"Bisa cetak ke kertas atau simpan sebagai PDF. Di browser juga bisa print halaman web.", tip:"Pilih 'Save as PDF' untuk menyimpan dokumen tanpa printer." },
+      { id:10, cat:"umum", name:"Bold (Tebal)", keys:["Ctrl","B"], desc:"Membuat teks menjadi tebal.", detail:"Toggle: tekan sekali jadi tebal, tekan lagi normal. Bekerja di Word, Excel, email, chat.", tip:"Di WhatsApp Web, Ctrl+B juga berfungsi." },
+      { id:11, cat:"umum", name:"Italic (Miring)", keys:["Ctrl","I"], desc:"Membuat teks menjadi miring.", detail:"Toggle seperti Bold. Sering dipakai untuk judul buku atau istilah asing.", tip:"Ctrl+B + Ctrl+I bersamaan = tebal miring." },
+      { id:12, cat:"umum", name:"Underline (Garis Bawah)", keys:["Ctrl","U"], desc:"Membuat garis bawah pada teks.", detail:"Toggle seperti Bold dan Italic. Kurang populer karena dikira link.", tip:"Jangan terlalu banyak underline, bisa membingungkan." },
+      { id:13, cat:"umum", name:"Alt+Tab (Pindah Jendela)", keys:["Alt","Tab"], desc:"Berpindah cepat antar aplikasi.", detail:"Tahan Alt, tekan Tab berulang kali untuk preview jendela. Lepaskan Alt di jendela yang diinginkan.", tip:"Alt+Shift+Tab untuk berpindah ke arah sebaliknya." },
+      { id:14, cat:"word", name:"Tengahkan Teks", keys:["Ctrl","E"], desc:"Membuat teks rata tengah.", detail:"Sering dipakai untuk judul atau heading. Toggle: tekan lagi untuk kembali.", tip:"Ctrl+L=rata kiri, Ctrl+R=rata kanan, Ctrl+J=justify." },
+      { id:15, cat:"word", name:"New Document", keys:["Ctrl","N"], desc:"Membuat dokumen baru kosong.", detail:"Lebih cepat dari File → New. Langsung buka jendela dokumen baru.", tip:"Di browser, Ctrl+N buka jendela browser baru." },
+      { id:16, cat:"word", name:"Open File (Buka)", keys:["Ctrl","O"], desc:"Membuka dialog pilih file.", detail:"Muncul file explorer untuk memilih dokumen yang ingin dibuka.", tip:"Huruf O bukan nol! Sering bikin bingung pemula." },
+      { id:17, cat:"word", name:"Replace (Ganti)", keys:["Ctrl","H"], desc:"Mencari dan mengganti teks otomatis.", detail:"Misalnya salah tulis 'Jon' ingin ganti semua jadi 'John' sekaligus.", tip:"'Replace All' mengganti semua sekaligus. Hati-hati, cek dulu hasilnya." },
+      { id:18, cat:"word", name:"Perbesar Font", keys:["Ctrl","Shift",">"], desc:"Memperbesar ukuran font.", detail:"Setiap tekan memperbesar satu tingkat. Lebih cepat dari dropdown.", tip:"Ctrl+Shift+< untuk memperkecil font." },
+      { id:19, cat:"word", name:"Insert Link", keys:["Ctrl","K"], desc:"Menyisipkan hyperlink.", detail:"Teks yang dipilih jadi clickable link biru. Muncul dialog untuk masukkan URL.", tip:"Klik link sambil tekan Ctrl untuk langsung buka." },
+      { id:20, cat:"excel", name:"Select All Cells", keys:["Ctrl","A"], desc:"Memilih seluruh sel berisi data.", detail:"Pertama memilih area data. Tekan lagi untuk pilih seluruh sheet termasuk kosong.", tip:"Klik sudut kiri atas juga bisa memilih semua sel." },
+      { id:21, cat:"excel", name:"Sum (Jumlah)", keys:["Alt","="], desc:"Menjumlahkan angka otomatis.", detail:"Otomatis deteksi range angka di atas dan buat formula =SUM().", tip:"Tekan Enter setelah muncul formula untuk hasilnya." },
+      { id:22, cat:"excel", name:"Format Cells", keys:["Ctrl","1"], desc:"Membuka dialog format sel.", detail:"Ubah format angka (rupiah, persen, tanggal), warna, border, alignment.", tip:"Angka 1 di atas huruf, bukan numpad. Shortcut Excel terpenting!" },
+      { id:23, cat:"excel", name:"Fill Down", keys:["Ctrl","D"], desc:"Mengisi sel bawah dengan isi sel atas.", detail:"Cocok untuk copy formula ke banyak baris. Pilih range lalu tekan.", tip:"Ctrl+R untuk Fill Right (isi ke kanan)." },
+      { id:24, cat:"excel", name:"Insert Row", keys:["Ctrl","Shift","+"], desc:"Menyisipkan baris atau kolom baru.", detail:"Baris baru di atas sel aktif, kolom baru di kiri sel aktif.", tip:"Pilih beberapa baris dulu untuk sisipkan lebih dari satu." },
+      { id:25, cat:"browser", name:"Tab Baru", keys:["Ctrl","T"], desc:"Membuka tab baru di browser.", detail:"Lebih cepat dari klik tombol +. Tab baru langsung fokus ke address bar.", tip:"Ctrl+W tutup tab. Ctrl+Shift+T buka tab yang baru ditutup." },
+      { id:26, cat:"browser", name:"Refresh", keys:["F5"], desc:"Memuat ulang halaman web.", detail:"Berguna kalau halaman tidak tampil sempurna. Ctrl+F5 untuk hard refresh.", tip:"Kalau website error, coba Ctrl+Shift+R untuk refresh total." },
+      { id:27, cat:"browser", name:"Zoom In", keys:["Ctrl","+"], desc:"Memperbesar tampilan halaman.", detail:"Membantu baca teks kecil. Browser ingat zoom per website.", tip:"Ctrl+- zoom out, Ctrl+0 reset ke 100%." },
+      { id:28, cat:"browser", name:"Buka Link di Tab Baru", keys:["Ctrl","Klik"], desc:"Membuka link di tab baru.", detail:"Tidak perlu klik kanan. Tahan Ctrl lalu klik link biasa.", tip:"Ctrl+Shift+Klik untuk buka dan langsung pindah ke tab." },
+      { id:29, cat:"browser", name:"History", keys:["Ctrl","H"], desc:"Membuka riwayat browsing.", detail:"Lihat semua website yang dikunjungi. Bisa dicari dan dihapus.", tip:"Ctrl+Shift+Delete untuk langsung hapus history." },
+      { id:30, cat:"browser", name:"Bookmark", keys:["Ctrl","D"], desc:"Menyimpan halaman ke bookmark.", detail:"Muncul dialog konfirmasi. Bisa edit nama dan pilih folder.", tip:"Ctrl+Shift+D bookmark semua tab sekaligus." },
+      { id:31, cat:"windows", name:"Lock Screen", keys:["Win","L"], desc:"Mengunci layar laptop.", detail:"Sangat penting untuk keamanan! Password diperlukan untuk membuka.", tip:"Kebiasaan: setiap berdiri dari laptop, langsung Win+L." },
+      { id:32, cat:"windows", name:"Task Manager", keys:["Ctrl","Shift","Esc"], desc:"Membuka Task Manager langsung.", detail:"Lihat aplikasi berjalan, CPU/RAM, dan tutup paksa aplikasi yang not responding.", tip:"Kalau laptop lambat, cek Task Manager untuk lihat yang makan resource." },
+      { id:33, cat:"windows", name:"Screenshot", keys:["Win","Shift","S"], desc:"Mengambil tangkapan layar.", detail:"Pilih area yang ingin di-screenshot. Hasil di clipboard, paste ke Paint/Word.", tip:"Snipping Tool lebih lengkap: bisa delay dan highlight." },
+      { id:34, cat:"windows", name:"Show Desktop", keys:["Win","D"], desc:"Minimize semua jendela sekaligus.", detail:"Tekan sekali: semua minimize. Tekan lagi: kembali seperti semula.", tip:"Klik garis tipis di ujung kanan taskbar juga bisa." },
+      { id:35, cat:"windows", name:"File Explorer", keys:["Win","E"], desc:"Membuka File Explorer langsung.", detail:"Lebih cepat dari klik icon taskbar atau cari di Start Menu.", tip:"Alt+D di File Explorer untuk fokus ke address bar." },
+      { id:36, cat:"windows", name:"Settings", keys:["Win","I"], desc:"Membuka Pengaturan Windows.", detail:"Akses cepat ke WiFi, display, bluetooth, akun, update.", tip:"Di Windows 11, Settings sudah menggantikan Control Panel." },
+      { id:37, cat:"file", name:"Rename", keys:["F2"], desc:"Mengubah nama file atau folder.", detail:"Klik file lalu F2. Kursor otomatis di nama, tinggal ketik nama baru.", tip:"Jangan hapus ekstensi file (.jpg, .docx) saat rename!" },
+      { id:38, cat:"file", name:"Delete", keys:["Delete"], desc:"Menghapus file atau folder.", detail:"Masuk ke Recycle Bin, masih bisa dikembalikan. Shift+Delete untuk hapus permanen.", tip:"Jangan pernah Shift+Delete kecuali benar-benar yakin." },
+      { id:39, cat:"file", name:"Properties", keys:["Alt","Enter"], desc:"Membuka properti file.", detail:"Lihat ukuran, lokasi, tanggal dibuat, atribut, dan info lainnya.", tip:"Di tab General bisa lihat ukuran folder total." },
+      { id:40, cat:"file", name:"Select Multiple", keys:["Ctrl","Klik"], desc:"Memilih beberapa file tidak berurutan.", detail:"Tahan Ctrl lalu klik file satu per satu. Bisa copy/cut/delete semua sekaligus.", tip:"Shift+Klik untuk pilih rentang file." },
+      { id:41, cat:"file", name:"New Folder", keys:["Ctrl","Shift","N"], desc:"Membuat folder baru.", detail:"Lebih cepat dari klik kanan → New → Folder. Langsung bisa ketik nama.", tip:"Bikin kebiasaan folder rapi: Documents, Pictures, Work, dll." },
+      { id:42, cat:"file", name:"Copy Path", keys:["Alt","D","Ctrl","C"], desc:"Menyalin lokasi path folder.", detail:"Alt+D fokus ke address bar, Ctrl+C menyalin path-nya.", tip:"Di Windows 11, klik kanan file → 'Copy as path' lebih mudah." }
     ];
 
-    // ===== DATA TIPS =====
     const tips = [
-      {
-        color: 'var(--accent)', bg: 'var(--accent-dim)',
-        title: 'Jangan Takut Salah Tekan',
-        text: 'Shortcut keyboard tidak akan merusak laptop. Kalau salah tekan, biasanya bisa dibatalkan dengan Ctrl+Z. Justru dengan sering mencoba, kamu akan lebih cepat hafal.'
-      },
-      {
-        color: 'var(--cyan)', bg: 'var(--cyan-dim)',
-        title: 'Hafal 5 Dulu, Baru Tambah',
-        text: 'Jangan paksakan hafal semua sekaligus. Mulai dari Ctrl+C, Ctrl+V, Ctrl+Z, Ctrl+S, dan Ctrl+A. Setelah lancar, tambah satu per satu.'
-      },
-      {
-        color: 'var(--orange)', bg: 'var(--orange-dim)',
-        title: 'Ctrl+S Adalah Teman Terbaik',
-        text: 'Kebiasaan paling penting untuk pemula: sering-sering save! Setiap 5-10 menit, tekan Ctrl+S. Data hilang karena lupa save adalah masalah paling umum.'
-      },
-      {
-        color: 'var(--pink)', bg: 'var(--pink-dim)',
-        title: 'Kenali Tombol Fn di Laptop',
-        text: 'Di laptop kecil, tombol F1-F12 kadang berfungsi sebagai volume, brightness, dll. Tahan Fn untuk menggunakan fungsi asli F-key. Atau cari setting "Fn Lock" di BIOS.'
-      },
-      {
-        color: 'var(--yellow)', bg: 'var(--yellow-dim)',
-        title: 'Klik Kanan Itu Sahabat',
-        text: 'Kalau lupa shortcut, klik kanan selalu menampilkan opsi yang tersedia. Bahkan di beberapa tempat, shortcut ditampilkan di samping menu klik kanan.'
-      },
-      {
-        color: 'var(--accent)', bg: 'var(--accent-dim)',
-        title: 'Jaga Laptop Tetap Bersih',
-        text: 'Debu di keyboard bisa menyebabkan tombol macet. Bersihkan dengan kuas lembut atau compressed air secara berkala. Jangan makan/minum terlalu dekat dengan laptop.'
-      },
-      {
-        color: 'var(--cyan)', bg: 'var(--cyan-dim)',
-        title: 'Bedakan Klik Kiri dan Kanan',
-        text: 'Klik kiri = memilih/menjalankan. Klik kanan = menampilkan menu opsi. Klik ganda (double click) = membuka file/folder. Tiga jenis klik ini fundamental.'
-      },
-      {
-        color: 'var(--orange)', bg: 'var(--orange-dim)',
-        title: 'Matikan Laptop dengan Benar',
-        text: 'Jangan pernah langsung cabut baterai atau tekan power lama untuk mematikan. Gunakan Start → Shutdown. Pemadaman paksa bisa merusak sistem dan data.'
-      },
-      {
-        color: 'var(--pink)', bg: 'var(--pink-dim)',
-        title: 'Update Selalu Aktifkan',
-        text: 'Windows Update memberikan patch keamanan penting. Jangan tunda-tunda update. Setel ke otomatis agar kamu tidak perlu repot. Ini melindungi dari virus dan malware.'
-      },
-      {
-        color: 'var(--yellow)', bg: 'var(--yellow-dim)',
-        title: 'Backup Data Secara Rutin',
-        text: 'Simpan file penting di Google Drive, OneDrive, atau flashdisk cadangan. Hard disk bisa rusak kapan saja tanpa peringatan. Aturan 3-2-1: 3 salinan, 2 media berbeda, 1 di cloud.'
-      }
+      { title:"Jangan Takut Salah Tekan", text:"Shortcut tidak akan merusak laptop. Kalau salah, biasanya bisa Ctrl+Z. Lebih sering coba = lebih cepat hafal." },
+      { title:"Hafal 5 Dulu, Baru Tambah", text:"Mulai dari Ctrl+C, Ctrl+V, Ctrl+Z, Ctrl+S, Ctrl+A. Setelah lancar, tambah satu per satu." },
+      { title:"Ctrl+S Adalah Teman Terbaik", text:"Kebiasaan paling penting: sering save! Setiap 5-10 menit tekan Ctrl+S. Data hilang karena lupa save paling umum." },
+      { title:"Kenali Tombol Fn", text:"Di laptop kecil, F1-F12 kadang jadi volume/brightness. Tahan Fn untuk fungsi asli F-key." },
+      { title:"Klik Kanan Itu Sahabat", text:"Kalau lupa shortcut, klik kanan selalu menampilkan opsi. Bahkan shortcut kadang ditampilkan di samping menu." },
+      { title:"Jaga Laptop Tetap Bersih", text:"Debu bisa bikin tombol macet. Bersihkan dengan kuas lembut. Jangan makan/minum dekat laptop." },
+      { title:"Bedakan Klik Kiri dan Kanan", text:"Klik kiri = memilih. Klik kanan = menu opsi. Double click = buka file. Tiga jenis klik ini fundamental." },
+      { title:"Matikan Laptop dengan Benar", text:"Jangan cabut baterai langsung. Gunakan Start → Shutdown. Pemadaman paksa bisa merusak sistem." },
+      { title:"Update Selalu Aktifkan", text:"Windows Update memberikan patch keamanan penting. Jangan tunda-tunda. Setel otomatis." },
+      { title:"Backup Data Secara Rutin", text:"Simpan file penting di Google Drive atau flashdisk cadangan. Hard disk bisa rusak kapan saja." }
     ];
+
+    const catLabels = { umum:"Umum", word:"Word", excel:"Excel", browser:"Browser", windows:"Windows", file:"File" };
 
     // ===== STATE =====
-    let currentCat = 'semua';
-    let currentSearch = '';
-    let learnedSet = new Set(JSON.parse(localStorage.getItem('lp_learned') || '[]'));
-    let currentModalId = null;
-    let deferredPrompt = null;
+    let curCat = "semua";
+    let curSearch = "";
+    let learned = new Set(JSON.parse(localStorage.getItem("lp_l") || "[]"));
+    let curId = null;
 
-    // ===== DOM REFS =====
-    const shortcutList = document.getElementById('shortcutList');
-    const searchInput = document.getElementById('searchInput');
-    const tabsScroll = document.getElementById('tabsScroll');
-    const resultCount = document.getElementById('resultCount');
-    const progressText = document.getElementById('progressText');
-    const progressBar = document.getElementById('progressBar');
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalSheet = document.getElementById('modalSheet');
-    const toast = document.getElementById('toast');
-    const toastText = document.getElementById('toastText');
-
-    // ===== RENDER SHORTCUTS =====
-    function renderShortcuts() {
-      const filtered = shortcuts.filter(s => {
-        const catMatch = currentCat === 'semua' || s.cat === currentCat;
-        const searchMatch = !currentSearch ||
-          s.name.toLowerCase().includes(currentSearch) ||
-          s.desc.toLowerCase().includes(currentSearch) ||
-          s.keys.join('+').toLowerCase().includes(currentSearch);
-        return catMatch && searchMatch;
+    // ===== RENDER CARDS =====
+    function renderCards() {
+      const list = document.getElementById("cardList");
+      const filtered = data.filter(s => {
+        const catOk = curCat === "semua" || s.cat === curCat;
+        const sOk = !curSearch || s.name.toLowerCase().includes(curSearch) || s.desc.toLowerCase().includes(curSearch) || s.keys.join("+").toLowerCase().includes(curSearch);
+        return catOk && sOk;
       });
-
-      resultCount.textContent = filtered.length;
-
-      if (filtered.length === 0) {
-        shortcutList.innerHTML = `
-          <div class="empty-state">
-            <i class="fas fa-search"></i>
-            <p>Tidak ditemukan shortcut yang cocok.<br>Coba kata kunci lain.</p>
-          </div>`;
+      document.getElementById("resCount").textContent = filtered.length;
+      if (!filtered.length) {
+        list.innerHTML = '<div class="empty"><i class="fas fa-search"></i><p>Tidak ditemukan.</p></div>';
         return;
       }
-
-      shortcutList.innerHTML = filtered.map((s, i) => {
-        const isLearned = learnedSet.has(s.id);
-        const keysHTML = s.keys.map((k, j) =>
-          (j > 0 ? '<span class="key-plus">+</span>' : '') +
-          `<span class="key">${k}</span>`
-        ).join('');
-
-        return `
-          <div class="shortcut-card ${isLearned ? 'learned' : ''}" data-cat="${s.cat}"
-               style="animation-delay:${i * 0.04}s"
-               onclick="openModal(${s.id})" role="button" tabindex="0"
-               aria-label="${s.name}">
-            <div class="card-top">
-              <div class="card-left">
-                <div class="card-name">${s.name}</div>
-                <div class="card-desc">${s.desc}</div>
-              </div>
-              <div class="card-keys">${keysHTML}</div>
-            </div>
-            <span class="card-cat-tag cat-${s.cat}">${getCatLabel(s.cat)}</span>
-            <div class="learned-badge"><i class="fas fa-check-circle"></i> Sudah dipelajari</div>
-          </div>`;
-      }).join('');
+      list.innerHTML = filtered.map((s, i) => {
+        const isL = learned.has(s.id);
+        const keysH = s.keys.map((k, j) => (j ? '<span class="key-plus">+</span>' : '') + '<span class="key">' + k + '</span>').join("");
+        return '<div class="card' + (isL ? " learned" : "") + '" style="animation-delay:' + (i * 0.03) + 's" onclick="openModal(' + s.id + ')" role="button" tabindex="0">' +
+          '<div class="card-top"><div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-desc">' + s.desc + '</div></div><div class="card-keys">' + keysH + '</div></div>' +
+          '<span class="card-tag">' + catLabels[s.cat] + '</span>' +
+          '<div class="card-check"><i class="fas fa-check-circle"></i> Sudah dipelajari</div></div>';
+      }).join("");
     }
 
-    function getCatLabel(cat) {
-      const labels = {
-        umum: 'Umum', word: 'Word', excel: 'Excel',
-        browser: 'Browser', windows: 'Windows', file: 'File'
-      };
-      return labels[cat] || cat;
-    }
-
-    // ===== RENDER TIPS =====
     function renderTips() {
-      const tipsList = document.getElementById('tipsList');
-      tipsList.innerHTML = tips.map((t, i) => `
-        <div class="tip-card" style="animation: cardIn 0.4s ${i * 0.06}s forwards; opacity:0; transform:translateY(16px);">
-          <div class="tip-num" style="background:${t.bg}; color:${t.color};">${i + 1}</div>
-          <div class="tip-title">${t.title}</div>
-          <div class="tip-text">${t.text}</div>
-        </div>
-      `).join('');
+      document.getElementById("tipsList").innerHTML = tips.map((t, i) =>
+        '<div class="tip-card" style="animation:fadeUp 0.3s ' + (i * 0.05) + 's forwards;opacity:0;transform:translateY(10px)">' +
+        '<div class="tip-num">' + (i + 1) + '</div><div class="tip-title">' + t.title + '</div><div class="tip-text">' + t.text + '</div></div>'
+      ).join("");
     }
 
-    // ===== RENDER BOOKMARKS =====
-    function renderBookmarks() {
-      const bookmarkList = document.getElementById('bookmarkList');
-      const bookmarkEmpty = document.getElementById('bookmarkEmpty');
-      const bookmarkCount = document.getElementById('bookmarkCount');
-
-      const learned = shortcuts.filter(s => learnedSet.has(s.id));
-      bookmarkCount.textContent = learned.length;
-
-      if (learned.length === 0) {
-        bookmarkList.innerHTML = '';
-        bookmarkEmpty.style.display = 'block';
-        return;
-      }
-
-      bookmarkEmpty.style.display = 'none';
-      bookmarkList.innerHTML = learned.map((s, i) => {
-        const keysHTML = s.keys.map((k, j) =>
-          (j > 0 ? '<span class="key-plus">+</span>' : '') +
-          `<span class="key">${k}</span>`
-        ).join('');
-
-        return `
-          <div class="shortcut-card learned" data-cat="${s.cat}"
-               style="animation-delay:${i * 0.04}s"
-               onclick="openModal(${s.id})" role="button" tabindex="0">
-            <div class="card-top">
-              <div class="card-left">
-                <div class="card-name">${s.name}</div>
-                <div class="card-desc">${s.desc}</div>
-              </div>
-              <div class="card-keys">${keysHTML}</div>
-            </div>
-            <span class="card-cat-tag cat-${s.cat}">${getCatLabel(s.cat)}</span>
-            <div class="learned-badge"><i class="fas fa-check-circle"></i> Sudah dipelajari</div>
-          </div>`;
-      }).join('');
+    function renderLearned() {
+      const list = document.getElementById("learnList");
+      const empty = document.getElementById("learnEmpty");
+      const items = data.filter(s => learned.has(s.id));
+      document.getElementById("learnCount").textContent = items.length;
+      if (!items.length) { list.innerHTML = ""; empty.style.display = "block"; return; }
+      empty.style.display = "none";
+      list.innerHTML = items.map((s, i) => {
+        const keysH = s.keys.map((k, j) => (j ? '<span class="key-plus">+</span>' : '') + '<span class="key">' + k + '</span>').join("");
+        return '<div class="card learned" style="animation-delay:' + (i * 0.03) + 's" onclick="openModal(' + s.id + ')">' +
+          '<div class="card-top"><div class="card-info"><div class="card-name">' + s.name + '</div><div class="card-desc">' + s.desc + '</div></div><div class="card-keys">' + keysH + '</div></div>' +
+          '<span class="card-tag">' + catLabels[s.cat] + '</span><div class="card-check"><i class="fas fa-check-circle"></i> Sudah dipelajari</div></div>';
+      }).join("");
     }
 
-    // ===== UPDATE PROGRESS =====
     function updateProgress() {
-      const total = shortcuts.length;
-      const learned = learnedSet.size;
-      progressText.textContent = `${learned} / ${total}`;
-      const pct = total > 0 ? (learned / total) * 100 : 0;
-      progressBar.style.width = pct + '%';
+      document.getElementById("progText").textContent = learned.size + " / " + data.length;
+      document.getElementById("progBar").style.width = (learned.size / data.length * 100) + "%";
     }
 
     // ===== MODAL =====
     function openModal(id) {
-      const s = shortcuts.find(x => x.id === id);
+      const s = data.find(x => x.id === id);
       if (!s) return;
-      currentModalId = id;
-
-      document.getElementById('modalCat').innerHTML =
-        `<span class="card-cat-tag cat-${s.cat}">${getCatLabel(s.cat)}</span>`;
-      document.getElementById('modalTitle').textContent = s.name;
-      document.getElementById('modalDesc').textContent = s.detail;
-      document.getElementById('modalTipText').textContent = s.tip;
-
-      const keysHTML = s.keys.map((k, j) =>
-        (j > 0 ? '<span class="key-plus">+</span>' : '') +
-        `<span class="key">${k}</span>`
-      ).join('');
-      document.getElementById('modalKeys').innerHTML = keysHTML;
-
-      // Update tombol learned
-      const btnLearn = document.getElementById('btnLearn');
-      if (learnedSet.has(id)) {
-        btnLearn.className = 'btn-learn primary done';
-        btnLearn.innerHTML = '<i class="fas fa-check"></i> Sudah Paham';
+      curId = id;
+      document.getElementById("mTag").innerHTML = '<span class="card-tag">' + catLabels[s.cat] + '</span>';
+      document.getElementById("mTitle").textContent = s.name;
+      document.getElementById("mDesc").textContent = s.detail;
+      document.getElementById("mTip").textContent = s.tip;
+      document.getElementById("mKeys").innerHTML = s.keys.map((k, j) => (j ? '<span class="key-plus">+</span>' : '') + '<span class="key">' + k + '</span>').join("");
+      const btn = document.getElementById("btnLearn");
+      if (learned.has(id)) {
+        btn.className = "sbtn sbtn-blue done";
+        btn.innerHTML = '<i class="fas fa-check"></i> Sudah Paham';
       } else {
-        btnLearn.className = 'btn-learn primary';
-        btnLearn.innerHTML = '<i class="fas fa-check"></i> Tandai Sudah Paham';
+        btn.className = "sbtn sbtn-blue";
+        btn.innerHTML = '<i class="fas fa-check"></i> Tandai Sudah Paham';
       }
-
-      modalOverlay.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      document.getElementById("overlay").classList.add("open");
+      document.body.style.overflow = "hidden";
     }
 
     function closeModal() {
-      modalOverlay.classList.remove('open');
-      document.body.style.overflow = '';
-      currentModalId = null;
+      document.getElementById("overlay").classList.remove("open");
+      document.body.style.overflow = "";
+      curId = null;
     }
 
-    // Tutup modal saat klik overlay
-    modalOverlay.addEventListener('click', (e) => {
-      if (e.target === modalOverlay) closeModal();
-    });
+    document.getElementById("overlay").addEventListener("click", function(e) { if (e.target === this) closeModal(); });
+    document.addEventListener("keydown", function(e) { if (e.key === "Escape") closeModal(); });
 
-    // ===== TOGGLE LEARNED =====
-    function toggleLearned() {
-      if (!currentModalId) return;
-      const id = currentModalId;
-      const btnLearn = document.getElementById('btnLearn');
-
-      if (learnedSet.has(id)) {
-        learnedSet.delete(id);
-        btnLearn.className = 'btn-learn primary';
-        btnLearn.innerHTML = '<i class="fas fa-check"></i> Tandai Sudah Paham';
-        showToast('Dihapus dari daftar pelajari');
+    function toggleLearn() {
+      if (!curId) return;
+      const btn = document.getElementById("btnLearn");
+      if (learned.has(curId)) {
+        learned.delete(curId);
+        btn.className = "sbtn sbtn-blue";
+        btn.innerHTML = '<i class="fas fa-check"></i> Tandai Sudah Paham';
+        showToast("Dihapus dari daftar pelajari");
       } else {
-        learnedSet.add(id);
-        btnLearn.className = 'btn-learn primary done';
-        btnLearn.innerHTML = '<i class="fas fa-check"></i> Sudah Paham';
-        showToast('Ditandai sudah dipelajari');
+        learned.add(curId);
+        btn.className = "sbtn sbtn-blue done";
+        btn.innerHTML = '<i class="fas fa-check"></i> Sudah Paham';
+        showToast("Ditandai sudah dipelajari");
       }
-
-      localStorage.setItem('lp_learned', JSON.stringify([...learnedSet]));
+      localStorage.setItem("lp_l", JSON.stringify([...learned]));
       updateProgress();
-      renderShortcuts();
-      renderBookmarks();
+      renderCards();
+      renderLearned();
     }
 
-    // ===== TOAST =====
     function showToast(msg) {
-      toastText.textContent = msg;
-      toast.classList.add('show');
-      clearTimeout(showToast._timer);
-      showToast._timer = setTimeout(() => toast.classList.remove('show'), 2200);
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(function() { t.classList.remove("show"); }, 2000);
     }
 
     // ===== TABS =====
-    tabsScroll.addEventListener('click', (e) => {
-      const btn = e.target.closest('.tab-btn');
+    document.getElementById("tabs").addEventListener("click", function(e) {
+      const btn = e.target.closest(".tab");
       if (!btn) return;
-      tabsScroll.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCat = btn.dataset.cat;
-      renderShortcuts();
+      this.querySelectorAll(".tab").forEach(function(b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      curCat = btn.dataset.cat;
+      renderCards();
     });
 
     // ===== SEARCH =====
-    searchInput.addEventListener('input', (e) => {
-      currentSearch = e.target.value.toLowerCase().trim();
-      renderShortcuts();
+    document.getElementById("searchInput").addEventListener("input", function(e) {
+      curSearch = e.target.value.toLowerCase().trim();
+      renderCards();
     });
 
-    // ===== BOTTOM NAV =====
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const page = btn.dataset.page;
-        document.getElementById('pageShortcuts').classList.toggle('hidden', page !== 'shortcuts');
-        document.getElementById('pageTips').classList.toggle('active', page === 'tips');
-        document.getElementById('pageBookmarks').classList.toggle('active', page === 'bookmarks');
-
-        if (page === 'bookmarks') renderBookmarks();
-        if (page === 'tips') renderTips();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+    // ===== NAV =====
+    document.querySelectorAll(".nbtn").forEach(function(btn) {
+      btn.addEventListener("click", function() {
+        document.querySelectorAll(".nbtn").forEach(function(b) { b.classList.remove("active"); });
+        this.classList.add("active");
+        document.querySelectorAll(".page").forEach(function(p) { p.classList.remove("active"); });
+        document.getElementById(this.dataset.page).classList.add("active");
+        if (this.dataset.page === "pgLearned") renderLearned();
+        if (this.dataset.page === "pgTips") renderTips();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     });
-
-    // ===== KEYBOARD: ESC tutup modal =====
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // ===== PWA: Service Worker (inline via blob) =====
-    if ('serviceWorker' in navigator) {
-      const swCode = `
-        const CACHE = 'laptoppedia-v1';
-        const ASSETS = ['/'];
-        self.addEventListener('install', e => {
-          e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)));
-          self.skipWaiting();
-        });
-        self.addEventListener('fetch', e => {
-          e.respondWith(
-            caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
-              if (resp.status === 200 && resp.type === 'basic') {
-                const clone = resp.clone();
-                caches.open(CACHE).then(c => c.put(e.request, clone));
-              }
-              return resp;
-            })).catch(() => caches.match('/'))
-          );
-        });
-        self.addEventListener('activate', e => {
-          e.waitUntil(caches.keys().then(keys =>
-            Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-          ));
-          self.clients.claim();
-        });
-      `;
-      const blob = new Blob([swCode], { type: 'application/javascript' });
-      const swURL = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(swURL).catch(() => {});
-    }
-
-    // ===== PWA: Install Prompt =====
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      document.getElementById('installBanner').classList.add('show');
-    });
-
-    function installApp() {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => {
-        deferredPrompt = null;
-        document.getElementById('installBanner').classList.remove('show');
-      });
-    }
 
     // ===== INIT =====
-    renderShortcuts();
+    renderCards();
     updateProgress();
   </script>
 </body>
